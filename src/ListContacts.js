@@ -15,7 +15,11 @@ export default function ListContacts(props) {
             <p>{contact.name}</p>
             <p>{contact.email}</p>
           </div>
-          <button className="contact-remove">Remove</button>
+          <button
+            onClick={() => props.onRemoveContact(contact)}
+            className="contact-remove"
+          >Remove
+          </button>
         </li>
       ))}
     </ol>

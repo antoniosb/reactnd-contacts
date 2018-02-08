@@ -24,10 +24,16 @@ export default class App extends Component {
       },
     ]
   }
+  removeContact = (contact) => {
+    this.setState((prevState) => ({
+      contacts: prevState.contacts.filter((c) => c.id !== contact.id)
+    }))
+  }
+
   render() {
     return (
       <div>
-        <ListContacts contacts={this.state.contacts} />
+        <ListContacts onRemoveContact={this.removeContact} contacts={this.state.contacts} />
       </div>
     );
   }
