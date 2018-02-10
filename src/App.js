@@ -6,7 +6,7 @@ import CreateContact from './CreateContact.js'
 export default class App extends Component {
   state = {
     contacts: [],
-    screen: 'create',
+    screen: 'list',
   }
 
   componentDidMount() {
@@ -23,11 +23,19 @@ export default class App extends Component {
     })
   }
 
+  navigateToCreate = () => {
+    this.setState({ screen: 'create' })
+  }
+
   render() {
     return (
       <div>
         { this.state.screen === 'list' && (
-          <ListContacts onRemoveContact={this.removeContact} contacts={this.state.contacts} />
+          <ListContacts
+            onRemoveContact={this.removeContact}
+            contacts={this.state.contacts}
+            onNavigate={this.navigateToCreate}
+          />
         )}
         { this.state.screen === 'create' && (
           <CreateContact/>

@@ -7,6 +7,7 @@ export default class ListContacts extends Component {
   static propTypes = {
     contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
     onRemoveContact: PropTypes.func.isRequired,
+    onNavigate: PropTypes.func
   }
 
   state = {
@@ -22,7 +23,7 @@ export default class ListContacts extends Component {
   clearQuery = () => { this.setState({ query: '' }) }
 
   render() {
-    const { contacts, onRemoveContact } = this.props
+    const { contacts, onRemoveContact, onNavigate } = this.props
     const { query } = this.state
     let showingContacts
 
@@ -44,6 +45,11 @@ export default class ListContacts extends Component {
           value={query}
           onChange={(event) => this.updateQuery(event.target.value)}
         />
+        <a href="#create"
+           onClick={onNavigate}
+           className='add-contact'>
+          Add Contact!
+        </a>
       </div>
         { showingContacts.length !== contacts.length && (
           <div className="showing-contacts">
