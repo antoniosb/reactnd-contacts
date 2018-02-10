@@ -24,7 +24,7 @@ export default class ListContacts extends Component {
   clearQuery = () => { this.setState({ query: '' }) }
 
   render() {
-    const { contacts, onRemoveContact, onNavigate } = this.props
+    const { contacts, onRemoveContact } = this.props
     const { query } = this.state
     let showingContacts
 
