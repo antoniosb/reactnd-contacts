@@ -14,9 +14,11 @@ export default class App extends Component {
   }
 
   removeContact = (contact) => {
-    this.setState((prevState) => ({
-      contacts: prevState.contacts.filter((c) => c.id !== contact.id)
-    }))
+    ContatcsAPI.remove(contact).then(() => {
+      this.setState((prevState) => ({
+        contacts: prevState.contacts.filter((c) => c.id !== contact.id)
+      }))
+    })
   }
 
   render() {
