@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ListContacts from './ListContacts.js';
-import * as ContatcsAPI from './utils/ContactsAPI.js'
+import * as ContactsAPI from './utils/ContactsAPI.js'
 import CreateContact from './CreateContact.js'
 import { Route } from 'react-router-dom'
 
@@ -10,15 +10,23 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    ContatcsAPI.getAll().then((contacts) => {
+    ContactsAPI.getAll().then((contacts) => {
       this.setState({ contacts })
     })
   }
 
   removeContact = (contact) => {
-    ContatcsAPI.remove(contact).then(() => {
+    ContactsAPI.remove(contact).then(() => {
       this.setState((prevState) => ({
         contacts: prevState.contacts.filter((c) => c.id !== contact.id)
+      }))
+    })
+  }
+
+  createContact = (contact) => {
+    ContactsAPI.create(contact).then(contact => {
+      this.setState(state => ({
+        contacts: state.contacts.concat([contact])
       }))
     })
   }
@@ -32,7 +40,14 @@ export default class App extends Component {
             contacts={this.state.contacts}
           />
         )}/>
-        <Route path='/create' component={CreateContact} />
+        <Route path='/create' render={({ history }) => (
+          <CreateContact
+            onCreateContact={(contact) => {
+              this.createContact(contact)
+              history.push('/')
+            }}
+          />
+        )}/>
       </div>
     );
   }

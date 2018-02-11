@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import ImageInput from './ImageInput.js'
 import serializeForm from 'form-serialize'
+import PropTypes from 'prop-types'
 
 export default class CreateContact extends Component {
+  static propTypes = {
+    onCreateContact: PropTypes.func.isRequired
+  }
+
   handleSubmit = (event) => {
     event.preventDefault()
     const values = serializeForm(event.target, {hash: true})
-    console.log(values)
+    this.props.onCreateContact(values)
   }
 
   render() {
